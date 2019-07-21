@@ -16,6 +16,10 @@ export default {
     signup : function(send){
         return axios.post(burl + '/user/signup',send,{headers: headers})
     },
+
+    //saveTeam : function(){
+    //    return axios.post(burl + 'team/save', send, {headers: headers})
+    //},
     
     isAuth : function() {
         return (localStorage.getItem('token') !== null);

@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import Autocomplete from "react-autocomplete";
 import FetchData from "../../helpers/fetch-data";
-import TeamList from "./team-list";
+import PokemonTeamList from "./PokemonTeamList";
 
 import API from '../../utils/API';
 
@@ -22,8 +22,11 @@ export class Dashboard extends React.Component {
           value: "",
           team: [],
           isFull: false,
+          existDouble: false,
           selectPokemon: () => {}
         };
+        this.disconnect.bind(this);
+        
         /* caveat:
          * if state is not initialized in the constructor,
          * then getting state asynchronously will return null
@@ -36,7 +39,7 @@ export class Dashboard extends React.Component {
     
       async getKantoPokemon() {
         const kantoPokemon = await FetchData(
-          "https://pokeapi.co/api/v2/pokedex/2/"
+          "https://pokeapi.co/api/v2/pokedex/1/"
         );
         const monsters = Object.values(kantoPokemon.pokemon_entries);
         const pokemon = [];
@@ -50,13 +53,45 @@ export class Dashboard extends React.Component {
       selectPokemon = value => {
         const myTeam = this.state.team;
         if (myTeam.length >= 6) {
-          this.setState({ isFull: true });
+          this.setState({ 
+            isFull: true,
+            existDouble: false
+          });
           return;
-        } else myTeam.push(value);
+        }
+        else if (myTeam.includes(value)){
+          console.log('doublon');
+          this.setState({ 
+            existDouble: true
+          });
+          return;
+        }
+        else myTeam.push(value);
         console.log("Selected: ", value);
         console.log(myTeam);
+        this.setState({ 
+          team: myTeam,
+          existDouble: false
+        });
+      };
+
+      removethispoke = poke => {
+        //this.setState({team:team})
+        console.log(poke);
+        const myTeam = this.state.team;
+        var index = myTeam.indexOf(poke);
+ 
+        if (index > -1) {
+          myTeam.splice(index, 1);
+        }
         this.setState({ team: myTeam });
       };
+
+      saveThisTeam = () => {
+        const myTeam = this.state.team;
+        console.log(localStorage.getItem("login"));
+      };
+
     
       clearPokemon = () => {
         const emptyTeam = [];
@@ -82,6 +117,8 @@ export class Dashboard extends React.Component {
                 <p style={{ textAlign: "center" }}>
                   Select from the dropdown, or type here to choose your Pokemon!
                 </p>
+                {this.state.isFull ? <Error>Your team is already full!</Error> : ""}
+                {this.state.existDouble ? <Error>You already have this pokemon!</Error> : ""}
                 <PokemonSelect>
                   <Autocomplete
                     items={this.state.pokemon.map(item => ({
@@ -109,10 +146,15 @@ export class Dashboard extends React.Component {
                     )}
                   />
                 </PokemonSelect>
-                {this.state.isFull ? <Error>Your team is already full!</Error> : ""}
-                <TeamList title="My Team:" team={this.state.team} />
+                <PokemonTeamList title="My Team:" team={this.state.team} onDeletePoke={this.removethispoke} />
                 <Button warn onClick={this.clearPokemon}>
                   Restart
+                </Button>
+                <Button warn onClick={this.saveThisTeam}>
+                  Save
+                </Button>
+                <Button warn onClick={this.disconnect}>
+                  Logout
                 </Button>
               </Wrapper>
             )}
@@ -148,6 +190,7 @@ export class Dashboard extends React.Component {
     
     const Error = styled.p`
       color: #ee1c24;
+      margin-top: 20px;
       text-align: center;
       transform: translateY(-16px);
     `;

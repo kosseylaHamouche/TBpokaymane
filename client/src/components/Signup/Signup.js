@@ -8,7 +8,8 @@ export class Signup extends React.Component {
         this.state = {
             email : "",
             password: "",
-            cpassword: ""
+            cpassword: "",
+            team: []
         }
         this.handleChange.bind(this);
         this.send.bind(this);
@@ -22,10 +23,13 @@ export class Signup extends React.Component {
         }
         var _send = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            team: []
         }
+        let self = this;
         API.signup(_send).then(function(data){
             localStorage.setItem('token', data.data.token);
+            localStorage.setItem('login', self.state.email);
             window.location = "/dashboard"
         },function(error){
             console.log(error);

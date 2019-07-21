@@ -14,7 +14,11 @@ var userSchema = mongoose.Schema({
 	password: {
         type: String,
         required: true
-    }
+	},
+	team: {
+		type: Array,
+		"default": []
+	}
 },{ timestamps: { createdAt: 'created_at' }})
 
 
