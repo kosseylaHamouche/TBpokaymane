@@ -120,7 +120,7 @@ export class Dashboard extends React.Component {
 							<Wrapper>
 								<h1 style={{ textAlign: "center" }}>Pokemon Team Builder</h1>
 								<p style={{ textAlign: "center" }}>
-									Select from the dropdown, or type here to choose your Pokemon!
+									Choose your Pokemon !
 								</p>
 								{this.state.isFull ? <Error>Your team is already full!</Error> : ""}
 								{this.state.existDouble ? <Error>You already have this pokemon!</Error> : ""}
