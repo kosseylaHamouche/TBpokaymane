@@ -16,6 +16,7 @@ const Loading = () => (
 export class Dashboard extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this)
         this.state = {
           isLoading: true,
           pokemon: [],
@@ -88,8 +89,12 @@ export class Dashboard extends React.Component {
       };
 
       saveThisTeam = () => {
-        const myTeam = this.state.team;
-        console.log(localStorage.getItem("login"));
+        const myTeam = {
+           team : Object.assign({}, this.state.team) ,
+           email :localStorage.getItem("login")
+        }
+        
+        API.saveTeam(myTeam);
       };
 
     
@@ -147,13 +152,13 @@ export class Dashboard extends React.Component {
                   />
                 </PokemonSelect>
                 <PokemonTeamList title="My Team:" team={this.state.team} onDeletePoke={this.removethispoke} />
-                <Button warn onClick={this.clearPokemon}>
+                <Button  onClick={this.clearPokemon}>
                   Restart
                 </Button>
-                <Button warn onClick={this.saveThisTeam}>
+                <Button  onClick={this.saveThisTeam}>
                   Save
                 </Button>
-                <Button warn onClick={this.disconnect}>
+                <Button  onClick={this.disconnect}>
                   Logout
                 </Button>
               </Wrapper>

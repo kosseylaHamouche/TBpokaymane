@@ -45,24 +45,24 @@ export class Signup extends React.Component {
         return(
             <div className="Login">
                 <FormGroup controlId="email" bsSize="large">
-                <ControlLabel>Email</ControlLabel>
-                <FormControl autoFocus type="email" value={this.state.email} onChange={this.handleChange}/>
+                    <ControlLabel>Email</ControlLabel>
+                    <FormControl autoFocus type="email" value={this.state.email} onChange={this.handleChange}/>
                 </FormGroup>
                 <FormGroup controlId="password" bsSize="large">
-                <ControlLabel>Password</ControlLabel>
-                <FormControl value={this.state.password} onChange={this.handleChange} type="password"/>
+                    <ControlLabel>Password</ControlLabel>
+                    <FormControl value={this.state.password} onChange={this.handleChange} type="password"/>
                 </FormGroup>
                 <FormGroup controlId="cpassword" bsSize="large">
-                <ControlLabel>Confirm Password</ControlLabel>
-                <FormControl value={this.state.cpassword} onChange={this.handleChange} type="password"/>
+                    <ControlLabel>Confirm Password</ControlLabel>
+                    <FormControl value={this.state.cpassword} onChange={this.handleChange} type="password"/>
                 </FormGroup>
                 <Button
-                onClick={this.send}
-                block
-                bsSize="large"
-                type="submit"
+                    onClick={this.send}
+                    block
+                    bsSize="large"
+                    type="submit"
                 >
-                Inscription
+                    Inscription
                 </Button>
             </div>
         )

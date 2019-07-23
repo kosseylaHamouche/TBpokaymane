@@ -97,7 +97,24 @@ function login(req, res) {
     }
 }
 
+function saveTeal(req, res) {
+    if (!req.body.team || !req.body.email) {
+        //Le cas où l'email ou bien le password ne serait pas soumit ou nul
+        res.status(400).json({
+            "text": "Requête invalide"
+        })
+    } else {
+        User.update({email:  req.body.email}, 
+                    {$push: {team:  [req.body.team] }}, 
+                    {new: true}, (err, result) => {
+                        if(err) {return console.log(err);}
+                        else {return res.send();}
+        })
+    }
+}
+
 //On exporte nos deux fonctions
 
 exports.login = login;
 exports.signup = signup;
+exports.saveTeal=saveTeal;
