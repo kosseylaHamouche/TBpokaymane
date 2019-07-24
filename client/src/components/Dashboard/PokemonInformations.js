@@ -1,45 +1,22 @@
-import React from 'react'
+import React, {Component} from 'react'
+import FetchData from "../../helpers/fetch-data";
 
-class PokemonInformations extends React.Component{
+class PokemonInformations extends Component{
     constructor(props){
         super(props)
-        this.state={
-            pokemon=props.pokemon
-        }
     }
-
-    getPokemonDate = () =>{
-        FetchData(URL+'/pokemon/'+this.state.name).then(value=>{
-            console.log(value);
-            this.setState({
-                pokemonIformation:value
-            })
-        })
-    }
-
-
-    async getKantoPokemon() {
-        const kantoPokemon = await FetchData(
-          "https://pokeapi.co/api/v2/pokedex/1/"
-        );
-        const monsters = Object.values(kantoPokemon.pokemon_entries);
-        const pokemon = [];
-        monsters.map(monster => pokemon.push(monster.pokemon_species.name));
-          this.setState({
-            isLoading: false,
-            pokemon
-          });
-      }
+    componentWillMount = () =>{}
 
       validerMesChangement = () =>{
           this.props.validerMesChangement(this.state.changement)
       }
 
     render(){
-        const {pokemon,pokemonIformation}=this.state;
+        const {pokemon}=this.props;
+
         return(
             <div>
-                {pokemonIformation&&
+                {pokemon&&
                     <div>
                         
                     </div>

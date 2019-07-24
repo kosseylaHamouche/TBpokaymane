@@ -4,6 +4,7 @@ import { Dashboard } from './components/Dashboard/Dashboard.js';
 import { Login } from './components/Login/Login.js';
 import { Signup } from './components/Signup/Signup.js';
 import { PrivateRoute } from './components/PrivateRoute.js';
+import  PokeDashBoard  from './components/Pokedashboard';
 import './App.css';
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
                 <Switch>  
                     <Route exact path="/" component={Login}/>
                     <Route exact path ="/signup" component={Signup}/>
+                    <Route exact path ="/toto" component={PokeDashBoard}/>
                     <PrivateRoute path='/dashboard' component={Dashboard} />
                 </Switch>
             </div>
