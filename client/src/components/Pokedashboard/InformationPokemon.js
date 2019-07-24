@@ -165,22 +165,7 @@ class InformationPokemon extends Component{
                         </li>
                     </ul>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>)
+)
     }
 }
 

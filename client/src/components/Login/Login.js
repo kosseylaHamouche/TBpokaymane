@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import API from '../../utils/API';
+import { Link } from 'react-router-dom';
+
 
 export class Login extends React.Component {
     constructor(props) {
@@ -37,6 +39,7 @@ export class Login extends React.Component {
     render() {
         return(
             <div className="Login">
+            <h1 style={{ textAlign: "center" }}>Pokemon Team Builder</h1>
                 <FormGroup controlId="email" bsSize="large">
                 <ControlLabel>Email</ControlLabel>
                 <FormControl autoFocus type="email" value={this.state.email} onChange={this.handleChange}/>
@@ -45,7 +48,7 @@ export class Login extends React.Component {
                 <ControlLabel>Password</ControlLabel>
                 <FormControl value={this.state.password} onChange={this.handleChange} type="password"/>
                 </FormGroup>
-                <Button
+                <Button className="btn btn-primary"
                 onClick={this.send}
                 block
                 bsSize="large"
@@ -53,6 +56,7 @@ export class Login extends React.Component {
                 >
                 Connexion
                 </Button>
+                <Link to="/signup" className="btn btn-link">Don't have an account yet</Link>
             </div>
         )
     }

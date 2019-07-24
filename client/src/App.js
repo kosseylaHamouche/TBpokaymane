@@ -6,11 +6,12 @@ import { Signup } from './components/Signup/Signup.js';
 import { PrivateRoute } from './components/PrivateRoute.js';
 import  PokeDashBoard  from './components/Pokedashboard';
 import './App.css';
+import './index.css';
 
 class App extends Component {
         render() {
         return (
-        <div className="App">
+        <div className="app">
             <div className="App-content">
                 <Switch>  
                     <Route exact path="/" component={Login}/>

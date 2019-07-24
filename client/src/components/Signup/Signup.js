@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import API from '../../utils/API';
+import { Link } from 'react-router-dom';
 
 export class Signup extends React.Component {
     constructor(props) {
@@ -44,6 +45,7 @@ export class Signup extends React.Component {
     render() {
         return(
             <div className="Login">
+            <h1 style={{ textAlign: "center" }}>Pokemon Team Builder</h1>
                 <FormGroup controlId="email" bsSize="large">
                     <ControlLabel>Email</ControlLabel>
                     <FormControl autoFocus type="email" value={this.state.email} onChange={this.handleChange}/>
@@ -56,7 +58,7 @@ export class Signup extends React.Component {
                     <ControlLabel>Confirm Password</ControlLabel>
                     <FormControl value={this.state.cpassword} onChange={this.handleChange} type="password"/>
                 </FormGroup>
-                <Button
+                <Button className="btn btn-primary"
                     onClick={this.send}
                     block
                     bsSize="large"
@@ -64,6 +66,7 @@ export class Signup extends React.Component {
                 >
                     Inscription
                 </Button>
+                <Link to="/" className="btn btn-link">Cancel</Link>
             </div>
         )
     }

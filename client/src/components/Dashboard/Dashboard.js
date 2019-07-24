@@ -124,61 +124,57 @@ export class Dashboard extends React.Component {
 			render() {
 				const {pokemonIformation}= this.state;
 				return (
-					<div>
-						<PokemonInformations pokemon ={pokemonIformation}/>
-						<React.Fragment>
-							{this.state.isLoading ? (
-								<Loading />
-							) : (
-								<Wrapper>
-									<h1 style={{ textAlign: "center" }}>Pokemon Team Builder</h1>
-									<p style={{ textAlign: "center" }}>
-										Select from the dropdown, or type here to choose your Pokemon!
-									</p>
-									{this.state.isFull ? <Error>Your team is already full!</Error> : ""}
-									{this.state.existDouble ? <Error>You already have this pokemon!</Error> : ""}
-									
-									<PokemonSelect>
-										<Autocomplete
-											items={this.state.pokemon.map(item => ({
-												id: item,
-												label: item
-											}))}
-											shouldItemRender={(item, value) =>
-												item.label.toLowerCase().indexOf(value.toLowerCase()) > -1
-											}
-											getItemValue={item => item.label}
-											initialValue=""
-											value={this.state.value}
-											onChange={e => this.setState({ value: e.target.value })}
-											onSelect={this.selectPokemon}
-											renderItem={(item, highlighted) => (
-												<div
-													key={item.id}
-													style={{
-														backgroundColor: highlighted ? "#3e9fe6" : "#fff",
-														color: highlighted ? "#fff" : "#3e9fe6"
-													}}
-												>
-													<li>{item.label}</li>
-												</div>
-											)}
-										/>
-									</PokemonSelect>
-									<PokemonTeamList title="My Team:" team={this.state.team} onDeletePoke={this.removethispoke} />
-									<Button  onClick={this.clearPokemon}>
-										Restart
-									</Button>
-									<Button  onClick={this.saveThisTeam}>
-										Save
-									</Button>
-									<Button  onClick={this.disconnect}>
-										Logout
-									</Button>
-								</Wrapper>
-							)}
-						</React.Fragment>
-					</div>
+					<React.Fragment>
+						{this.state.isLoading ? (
+							<Loading />
+						) : (
+							<Wrapper>
+								<h1 style={{ textAlign: "center" }}>Pokemon Team Builder</h1>
+								<p style={{ textAlign: "center" }}>
+									Choose your Pokemon !
+								</p>
+								{this.state.isFull ? <Error>Your team is already full!</Error> : ""}
+								{this.state.existDouble ? <Error>You already have this pokemon!</Error> : ""}
+								<PokemonSelect>
+									<Autocomplete
+										items={this.state.pokemon.map(item => ({
+											id: item,
+											label: item
+										}))}
+										shouldItemRender={(item, value) =>
+											item.label.toLowerCase().indexOf(value.toLowerCase()) > -1
+										}
+										getItemValue={item => item.label}
+										initialValue=""
+										value={this.state.value}
+										onChange={e => this.setState({ value: e.target.value })}
+										onSelect={this.selectPokemon}
+										renderItem={(item, highlighted) => (
+											<div
+												key={item.id}
+												style={{
+													backgroundColor: highlighted ? "#3e9fe6" : "#fff",
+													color: highlighted ? "#fff" : "#3e9fe6"
+												}}
+											>
+												<li>{item.label}</li>
+											</div>
+										)}
+									/>
+								</PokemonSelect>
+								<PokemonTeamList title="My Team:" team={this.state.team} onDeletePoke={this.removethispoke} />
+								<Button  onClick={this.clearPokemon}>
+									Restart
+								</Button>
+								<Button  onClick={this.saveThisTeam}>
+									Save
+								</Button>
+								<Button  onClick={this.disconnect}>
+									Logout
+								</Button>
+							</Wrapper>
+						)}
+					</React.Fragment>
 				);
 			}
 		}
