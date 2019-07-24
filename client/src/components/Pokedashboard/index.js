@@ -15,7 +15,8 @@ class PokeDashBoard extends Component{
             team : [],
             pokemonState: [],
             currentPokemon:[],
-            movesList : []
+            movesList : [],
+            finalTeam : []
         }
     }
 
@@ -53,19 +54,17 @@ class PokeDashBoard extends Component{
                 ).then(move =>{
                     if(move )
                     {   
-                        console.log(move)
                         movesList.push( {
                             name : move.name,
                             type : move.type.name,
-                            power : move.past_values.power,
-                            PP : move.past_values.PP,
+                            power : move.power,
+                            PP : move.pp,
                             damagetype : move.damage_class.name,
                             accuracy : move.accuracy
                         })
                     }
                 });
             }) 
-            console.log(movesList)
             this.setState({
                 isLoading: false,
                 movesList
@@ -75,6 +74,7 @@ class PokeDashBoard extends Component{
 
     selectPokemon = value => {
         const myTeam = this.state.team;
+        const finalTeam = this.state.finalTeam
         const pokemonState = this.state.pokemonState;     
 
 
@@ -94,11 +94,20 @@ class PokeDashBoard extends Component{
         }
         else
         FetchData('https://pokeapi.co/api/v2/pokemon/'+value+'').then(reponse=>{
+            const finalStats = [];
+            reponse.stats.map(stat=>(
+                finalStats.push({
+                    final_stat : stat.base_stat*2+5,
+                    stat_name : stat.stat.name
+                })
+            ))
+            reponse.finalStats = finalStats;
             pokemonState.push({
                 key : value,
                 state : reponse
             })
             myTeam.push(value);
+            finalTeam.push({key : value, stats:{}})
             this.setState({ 
                 team: myTeam,
                 existDouble: false,
@@ -116,7 +125,10 @@ class PokeDashBoard extends Component{
         if (index > -1) {
             myTeam.splice(index, 1);
         };
-        this.setState({ team: myTeam });
+        const finalTeam = this.state.finalTeam;
+        const id = finalTeam.find(id => id.key ===this.state.currentPokemon.key)
+        finalTeam.splice(id, 1);
+        this.setState({ team: myTeam, finalTeam : finalTeam });
     };
 
     editthispoke = poke => {
@@ -125,10 +137,18 @@ class PokeDashBoard extends Component{
         this.setState({ currentPokemon : index });
     };
 
+    saveCurrentPokemon = (pokemon) =>{
+        const finalTeam = this.state.finalTeam;
+        const id = finalTeam.findIndex(id => id.key ===this.state.currentPokemon.key);
+        finalTeam[id].stats= pokemon;
+        this.setState({
+            finalTeam:finalTeam
+        })
+    }
 
     saveThisTeam = () => {
         const myTeam = {
-             team : Object.assign({}, this.state.team) ,
+             team : Object.assign({}, this.state.finalTeam) ,
              email :localStorage.getItem("login")
         }
         
@@ -177,7 +197,7 @@ class PokeDashBoard extends Component{
                     <ListPokemon    team = {this.state.team} 
                                     removethispoke = {this.removethispoke}
                                     editthispoke = {this.editthispoke}/>
-                    <InformationPokemon currentPokemon = {this.state.currentPokemon} movesList ={this.state.movesList} />
+                    <InformationPokemon saveCurrentPokemon={this.saveCurrentPokemon} currentPokemon = {this.state.currentPokemon} movesList ={this.state.movesList} />
                 </div>
             </div>
         )
