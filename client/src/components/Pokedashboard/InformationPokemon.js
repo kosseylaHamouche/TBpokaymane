@@ -30,11 +30,10 @@ class InformationPokemon extends Component{
         })
     }
     
-    onchange= event =>{
-         console.log(event.target)
-         /*this.setState({
-            
-         })*/
+    onClick_move= event =>{
+        this.setState({
+            moveInputId : event.target.name
+        })
      }
 
     onEVChange = event =>{
@@ -190,16 +189,16 @@ class InformationPokemon extends Component{
                 <div class="setcol setcol-moves">
                     <div class="setcell">
                         <label>Moves</label>
-                        <input type="text" name="1" onchange={this.onchange} class="textbox chartinput" value={this.state.move1} autocomplete="off"/>
+                        <input type="text" name="1" onClick={this.onClick_move} class="textbox chartinput" value={this.state.move1} autocomplete="off"/>
                     </div>
                     <div class="setcell">
-                        <input type="text" name="2" onchange={this.onchange} class="textbox chartinput" value={this.state.move2} autocomplete="off"/>
+                        <input type="text" name="2" onClick={this.onClick_move} class="textbox chartinput" value={this.state.move2} autocomplete="off"/>
                     </div>
                     <div class="setcell">
-                        <input type="text" name="3" onchange={this.onchange} class="textbox chartinput" value={this.state.move3} autocomplete="off"/>
+                        <input type="text" name="3" onClick={this.onClick_move} class="textbox chartinput" value={this.state.move3} autocomplete="off"/>
                     </div>
                     <div class="setcell">
-                        <input type="text" name="4" onchange={this.onchange} class="textbox chartinput" value={this.state.move4} autocomplete="off"/>
+                        <input type="text" name="4" onClick={this.onClick_move} class="textbox chartinput" value={this.state.move4} autocomplete="off"/>
                     </div>
                 </div>
                 <ul class="utilichart" >

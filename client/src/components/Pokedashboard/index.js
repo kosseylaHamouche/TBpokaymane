@@ -178,6 +178,7 @@ class PokeDashBoard extends Component{
 
     render(){
         console.log(this.state)
+        const pStats = this.state.finalTeam.findIndex(id => id.key ===this.state.currentPokemon.key);
         return(
             <div className ='container'>
                 <h1 style={{ textAlign: "center" }}>Pokemon Team Builder</h1>
@@ -197,7 +198,7 @@ class PokeDashBoard extends Component{
                     <ListPokemon    team = {this.state.team} 
                                     removethispoke = {this.removethispoke}
                                     editthispoke = {this.editthispoke}/>
-                    <InformationPokemon saveCurrentPokemon={this.saveCurrentPokemon} currentPokemon = {this.state.currentPokemon} movesList ={this.state.movesList} />
+                    <InformationPokemon saveCurrentPokemon={this.saveCurrentPokemon} currentPokemon = {this.state.currentPokemon} movesList ={this.state.movesList} pStats = {pStats} />
                 </div>
             </div>
         )
