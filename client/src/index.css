@@ -121,6 +121,8 @@ body {
   width: 52px;
   text-align: right;
   font-size: 9pt;
+  margin-right: 40px;
+  
 }
 .statform .basestatscol {
   width: 38px;
@@ -200,9 +202,6 @@ p {
 }
 
 
-element.style {
-  height: 4092px;
-}
 .utilichart, .utilichart li {
   list-style-type: none;
   margin: 0;
@@ -210,6 +209,8 @@ element.style {
   display: block;
   clear: both;
   word-wrap: normal;
+  
+  background: lightgrey;
 }
 
 ul {
@@ -262,7 +263,7 @@ ul {
   width: 159px;
 }
 .utilichart .powersortcol {
-  width: 30px;
+  width: 50px;
 }
 
 .utilichart .accuracysortcol {
@@ -270,7 +271,7 @@ ul {
 }
 
 .utilichart .ppsortcol {
-  width: 23px;
+  width: 33px;
 }
 
 .teambuilder-results .result a {
@@ -345,7 +346,7 @@ ul {
 
 .utilichart .pplabelcol {
   text-align: center;
-  width: 18px;
+  width: 38px;
   padding-right: 5px;
 }
 .utilichart .widelabelcol {
@@ -355,7 +356,7 @@ ul {
 
 .utilichart .labelcol {
   text-align: center;
-  width: 30px;
+  width: 50px;
   margin-left: -2px;
 }
 

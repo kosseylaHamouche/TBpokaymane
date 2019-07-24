@@ -45,42 +45,27 @@ class PokeDashBoard extends Component{
         FetchData(
             "https://pokeapi.co/api/v2/move?offset=0&limit=30"
         ).then(reponse =>{
-
             const moves = Object.values(reponse.results);
-            const movesList=[]
+            const movesList=[];
             moves.map(movename =>{
-                const tab = [];
-                return tab.push(FetchData(
+                FetchData(
                     "https://pokeapi.co/api/v2/move/"+movename.name+"/"
-                ).then(reponse =>{
-                    console.log(reponse)
-                    console.log(movesList)
-                    console.log(reponse)
-                    if(reponse!== undefined && reponse!== null && reponse.results!== undefined && reponse.results!== null)
+                ).then(move =>{
+                    if(move )
                     {   
-                        const move = Object.values(reponse.results);
-                        return {
+                        console.log(move)
+                        movesList.push( {
                             name : move.name,
                             type : move.type.name,
                             power : move.past_values.power,
                             PP : move.past_values.PP,
                             damagetype : move.damage_class.name,
                             accuracy : move.accuracy
-                        }
+                        })
                     }
-                }));
+                });
             }) 
-
-                console.log(movesList)
-            /*moves.map(move => movesList.push({
-                name : move.name,
-                type : move.type.name,
-                power : move.past_values.power,
-                PP : move.past_values.PP,
-                damagetype : move.damage_class.name,
-                accuracy : '100%'
-
-            }));*/
+            console.log(movesList)
             this.setState({
                 isLoading: false,
                 movesList
@@ -172,6 +157,7 @@ class PokeDashBoard extends Component{
     }
 
     render(){
+        console.log(this.state)
         return(
             <div className ='container'>
                 <h1 style={{ textAlign: "center" }}>Pokemon Team Builder</h1>
@@ -191,7 +177,7 @@ class PokeDashBoard extends Component{
                     <ListPokemon    team = {this.state.team} 
                                     removethispoke = {this.removethispoke}
                                     editthispoke = {this.editthispoke}/>
-                    <InformationPokemon currentPokemon = {this.state.currentPokemon}/>
+                    <InformationPokemon currentPokemon = {this.state.currentPokemon} movesList ={this.state.movesList} />
                 </div>
             </div>
         )
