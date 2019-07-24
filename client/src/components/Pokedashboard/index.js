@@ -14,18 +14,21 @@ class PokeDashBoard extends Component{
             existDouble : false,
             team : [],
             pokemonState: [],
-            currentPokemon:[]
+            currentPokemon:[],
+            movesList : []
         }
     }
 
     componentDidMount() {
         this.getKantoPokemon();
+        this.getKantoMoves();
     }
 
     getKantoPokemon = () => {
         FetchData(
             "https://pokeapi.co/api/v2/pokemon/?limit=151"
         ).then(reponse =>{
+
             const monsters = Object.values(reponse.results);
             const pokemons = [];
             monsters.map(monster => pokemons.push(monster.name));
@@ -35,6 +38,54 @@ class PokeDashBoard extends Component{
             });
         })
         
+    }
+
+    getKantoMoves = () =>{
+        
+        FetchData(
+            "https://pokeapi.co/api/v2/move?offset=0&limit=30"
+        ).then(reponse =>{
+
+            const moves = Object.values(reponse.results);
+            const movesList=[]
+            moves.map(movename =>{
+                const tab = [];
+                return tab.push(FetchData(
+                    "https://pokeapi.co/api/v2/move/"+movename.name+"/"
+                ).then(reponse =>{
+                    console.log(reponse)
+                    console.log(movesList)
+                    console.log(reponse)
+                    if(reponse!== undefined && reponse!== null && reponse.results!== undefined && reponse.results!== null)
+                    {   
+                        const move = Object.values(reponse.results);
+                        return {
+                            name : move.name,
+                            type : move.type.name,
+                            power : move.past_values.power,
+                            PP : move.past_values.PP,
+                            damagetype : move.damage_class.name,
+                            accuracy : move.accuracy
+                        }
+                    }
+                }));
+            }) 
+
+                console.log(movesList)
+            /*moves.map(move => movesList.push({
+                name : move.name,
+                type : move.type.name,
+                power : move.past_values.power,
+                PP : move.past_values.PP,
+                damagetype : move.damage_class.name,
+                accuracy : '100%'
+
+            }));*/
+            this.setState({
+                isLoading: false,
+                movesList
+            });
+        });
     }
 
     selectPokemon = value => {
@@ -108,6 +159,11 @@ class PokeDashBoard extends Component{
         });
     };
 
+
+    disconnect = () => {
+        API.logout();
+        window.location = "/";
+    }
 
 
 
